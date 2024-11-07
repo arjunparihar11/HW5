@@ -250,9 +250,38 @@ public class CuckooHash<K, V> {
 		// Also make sure you read this method's prologue above, it should help
 		// you. Especially the two HINTS in the prologue.
 		
-		
-	}
-
+		//Initial position from hash1
+		int pos1 = hash1(key); 
+		//Alternate position from hash2
+    	int pos2 = hash2(key); 
+    	//Counter to detect cycles
+    	int cycleCount = 0; 
+    	while (cycleCount < CAPACITY) {
+        	//If position 1 is empty, insert the pair here
+        	if (table[pos1] == null) {
+            	table[pos1] = new Bucket<>(key, value);
+            	return;
+        	} else if (table[pos1].getBucKey().equals(key) && table[pos1].getValue().equals(value)) {
+            	//If a duplicate pair exists, skip insertion
+            	return;
+        	}
+        	//kick out the current entry at pos1
+        	Bucket<K, V> displaced = table[pos1];
+			//Insert the new entry
+        	table[pos1] = new Bucket<>(key, value); 
+        	//Swap out the displaced entry to try inserting it at pos2
+        	key = displaced.getBucKey();
+        	value = displaced.getValue();
+			//Alternate between pos1 and pos2
+        	pos1 = (pos1 == hash1(key)) ? pos2 : hash1(key);
+			//Increment shuffle counter
+        	cycleCount++; 
+    	}
+    	//If cycle detected after 'CAPACITY' shuffles, rehash the table
+    	rehash();
+		//Reattempt insertion with rehashed table
+    	put(key, value); 
+}
 
 	/**
 	 * Method get
