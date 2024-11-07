@@ -1,6 +1,6 @@
 /******************************************************************
  *
- *   YOUR NAME / SECTION NUMBER
+ *   Arjun Parihar COMP 272-002
  *
  *   Note, additional comments provided throughout this source code
  *   is for educational purposes
@@ -249,8 +249,8 @@ public class CuckooHash<K, V> {
 		// ADD YOUR CODE HERE - DO NOT FORGET TO ADD YOUR NAME AT TOP OF FILE.
 		// Also make sure you read this method's prologue above, it should help
 		// you. Especially the two HINTS in the prologue.
-
-		return;
+		
+		
 	}
 
 
